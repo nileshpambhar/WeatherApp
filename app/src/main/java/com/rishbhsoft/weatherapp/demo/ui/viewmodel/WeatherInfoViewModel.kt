@@ -3,6 +3,7 @@ package com.rishbhsoft.weatherapp.demo.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.weather_lib.helper.WeatherApiHelper
 import com.example.weather_lib.interfaces.CurrentWeatherCallback
 import com.example.weather_lib.model.WeatherResponse
@@ -10,6 +11,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.rishbhsoft.weatherapp.demo.common.RequestCompleteListener
 import com.rishbhsoft.weatherapp.demo.data.City
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class WeatherInfoViewModel(
@@ -49,16 +52,19 @@ class WeatherInfoViewModel(
 
     fun getWeatherInfo(cityName: String) {
         progressBarLiveData.postValue(true)
-        weatherApiHelper.getCurrentWeatherByCityName(cityName, object : CurrentWeatherCallback {
-            override fun onSuccess(currentWeather: WeatherResponse?) {
-                progressBarLiveData.postValue(false)
-                weatherInfoLiveData.postValue(currentWeather)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            weatherApiHelper.getCurrentWeatherByCityName(cityName, object : CurrentWeatherCallback {
+                override fun onSuccess(currentWeather: WeatherResponse?) {
+                    progressBarLiveData.postValue(false)
+                    weatherInfoLiveData.postValue(currentWeather)
+                }
 
-            override fun onFailure(throwable: Throwable?) {
-                progressBarLiveData.postValue(false)
-                weatherInfoFailureLiveData.postValue(throwable?.localizedMessage)
-            }
-        })
+                override fun onFailure(throwable: Throwable?) {
+                    progressBarLiveData.postValue(false)
+                    weatherInfoFailureLiveData.postValue(throwable?.localizedMessage)
+                }
+            })
+        }
+
     }
 }
