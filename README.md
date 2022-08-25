@@ -11,7 +11,6 @@ We will use [Open Weather Map API](https://openweathermap.org/api) for collectin
 
 This SDK provide different method for weather data.
 
-Initialize SDK
 
 **SDK path and include as library module**
 
@@ -19,13 +18,15 @@ Initialize SDK
    implementation project(path: ':weather_lib')
 ~~~
    
+Initialize SDK
+
 ~~~
 val weatherApiHelper:WeatherApiHelper = WeatherApiHelper(BuildConfig.APP_ID) 
 ~~~
 
 ### SDK Methods
  - getCurrentWeatherByCityName
- - getCurrentWeatherByCityName
+ - getForecastByCityName
 
 ## Get Current Weather
 ~~~
@@ -34,11 +35,11 @@ public void getCurrentWeatherByCityName(String city, final CurrentWeatherCallbac
 
 ## Get Forecast Weather
 ~~~
-public void getCurrentWeatherByCityName(String city,int days, final ForecastCallback callback)
+public void getForecastByCityName(String city,int days, final ForecastCallback callback)
 ~~~
 
 To run sample application:
-set **app_id** in **local.properties** file which is **API_KEY** provided by Open Weathe Map.
+set **app_id** in **local.properties** file which is **API_KEY** provided by Open Weather Map.
 
 Sample code for getting weather info
 
