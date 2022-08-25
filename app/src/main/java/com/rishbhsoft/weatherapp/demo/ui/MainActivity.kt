@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setViewClickListener() {
         // View Weather button click listener
-        binding.layoutInput.btnViewWeather
         binding.layoutInput.btnViewWeather.setOnClickListener {
             val cityName = cityList[binding.layoutInput.spinner.selectedItemPosition].name
             viewModel.getWeatherInfo(cityName) // fetch weather info

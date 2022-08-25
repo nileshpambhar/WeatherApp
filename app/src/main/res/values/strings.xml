@@ -9,5 +9,4 @@
     <string name="label_visibility">Visibility</string>
     <string name="label_sunrise">Sunrise</string>
     <string name="label_sunset">Sunset</string>
-    <string name="OPEN_WEATHER_MAP_API_KEY">ae1c4977a943a50eaa7da25e6258d8b2</string>
 </resources>
